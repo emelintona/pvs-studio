@@ -16,6 +16,7 @@ jobs:
     
     - name: Compile
       run: |
+        chmod 777 script.sh
         ./script.sh
    
     - name: Upload Artifact
