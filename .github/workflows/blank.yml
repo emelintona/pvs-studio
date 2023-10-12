@@ -1,0 +1,32 @@
+name: "Analisi"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: aime
+    steps:
+    # This step checks out a copy of your repository.
+    - name: Checkout
+      uses: actions/checkout@v4.1.0
+    
+    - name: Compile
+      run: |
+        ./script.sh
+   
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: artefatti
+        path: results.sarif
+      
+    
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        # Path to SARIF file relative to the root of the repository
+        sarif_file: results.sarif
